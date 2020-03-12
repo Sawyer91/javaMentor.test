@@ -20,38 +20,53 @@ public class Main {
         int num1 = 0;
         int num2 = 0;
 
-        input = reader.readLine();
-        str = input.split(" ");
 
-        operation = str[1];
+        while (true) {
 
-            if (str[0].matches("[-+]?\\d+") && str[2].matches("[-+]?\\d+") && checkOperator(operation)) {
-                num1 = Integer.parseInt(str[0]);
-                num2 = Integer.parseInt(str[2]);
+            input = reader.readLine();
+            str = input.split(" ");
 
-                if ((num1 > 0 && num1 <= 10) && (num2 > 0 && num2 <= 10)) {
-                    intCalculate(num1, operation, num2);
+            operation = str[1];
+            str1 = str[0];
+            str2 = str[2];
+
+            if (!checkIn(input) && checkOperator(operation)) {
+                
+                if (str1.matches("[-+]?\\d+") && str2.matches("[-+]?\\d+")) {
+                    num1 = Integer.parseInt(str1);
+                    num2 = Integer.parseInt(str2);
+
+                    if ((num1 > 0 && num1 <= 10) && (num2 > 0 && num2 <= 10)) {
+                        intCalculate(num1, operation, num2);
+                    } else {
+                        throw new IOException("Error");
+                    }
+
+                } else if (!(str1.matches("[-+]?\\d+")) && !(str2.matches("[-+]?\\d+")) && checkNumRom(str1, str2)) {
+
+                        romeCalculate(str1, operation, str2);
+
                 } else {
                     throw new IOException("Error");
                 }
-
-            } else if (!(str[0].matches("[-+]?\\d+")) && !(str[2].matches("[-+]?\\d+")) && checkOperator(operation)) {
-                str1 = str[0];
-                str2 = str[2];
-
-                if(check(str1, str2)){
-                    romeCalculate(str1, operation, str2);
-                }else {
-                    throw new IOException("Error");
-                }
-
-            } else {
-                throw new IOException("Error");
+            }else {
+                throw new IllegalArgumentException(" Incorrect input");
             }
-
+        }
 
     }
 
+    //проверка длины входящих данных
+    public static boolean checkIn(String s){
+        String[] str = s.split(" ");
+        if(str.length > 4){
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+    //проверка операции
     public static boolean checkOperator(String s){
         if(s.equals("/")){
             return true;
@@ -66,8 +81,8 @@ public class Main {
         }
     }
 
-
-    public static boolean check (String a, String b){
+    //проверка входящих чисел для Римских символов
+    public static boolean checkNumRom (String a, String b){
 
         int num1 = romeToInt(a);
         int num2 = romeToInt(b);
@@ -79,6 +94,7 @@ public class Main {
         }
     }
 
+    //вызов калькулятора для Римских символов
     public static void romeCalculate(String a, String operation, String b){
 
         int num1 = romeToInt(a);
@@ -87,11 +103,11 @@ public class Main {
         System.out.println(intToRme(calculator(num1, operation, num2)));
     }
 
+    //вызов калкулятора для int
     public static void intCalculate(int a, String operation, int b){
 
         System.out.println(calculator(a, operation, b));
     }
-
 
 
 }

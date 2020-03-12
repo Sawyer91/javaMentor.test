@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Convert {
 
-    public static int romeToInt (String romeValue){
+    static int romeToInt(String romeValue){
         int intValue = 0;
         int last = 0;
 
@@ -34,7 +34,7 @@ public class Convert {
         return intValue;
     }
 
-    public static String intToRme(int value){
+    static String intToRme(int value){
         StringBuilder result = new StringBuilder();
 
         while (value > 0){
