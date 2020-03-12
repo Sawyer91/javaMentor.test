@@ -4,23 +4,21 @@ import java.util.ArrayList;
 
 public class Convert {
 
-    public int romeToInt (String romeValue){
+    public static int romeToInt (String romeValue){
         int intValue = 0;
         int last = 0;
 
         ArrayList romeList = new ArrayList();
 
-        for (int i = 0; i <= 1000; i++) {
+        for (int i = 0; i <= 100; i++) {
             romeList.add(i, "0");
         }
 
         romeList.set(1, "I");
         romeList.set(10, "X");
-        romeList.set(100, "C");
-        romeList.set(1000, "M");
+        romeList.set(100, "C");;
         romeList.set(5, "V");
         romeList.set(50, "L");
-        romeList.set(500, "D");
 
         for (int i = romeValue.length(); i > 0 ; i--) {
             String category = romeValue.substring(i-1, i);
@@ -36,17 +34,11 @@ public class Convert {
         return intValue;
     }
 
-    public String intToRme(int value){
+    public static String intToRme(int value){
         StringBuilder result = new StringBuilder();
 
         while (value > 0){
-            if ((value/1000) >= 1){
-                result.append("M");
-                value = value - 1000;
-            }else if ((value/500) >= 1){
-                result.append("D");
-                value = value - 500;
-            }else if ((value/100) >= 1){
+            if ((value/100) >= 1){
                 result.append("C");
                 value = value - 100;
             }else if ((value/50) >= 1){
@@ -55,8 +47,8 @@ public class Convert {
             }else if ((value/10) >= 1){
                 result.append("X");
                 value = value - 10;
-            }else if ((value/1) >= 1){
-                switch ((value/1)){
+            }else {
+                switch ((value)){
                     case 9:
                         result.append("IX");
                         value = value - 9;
@@ -104,6 +96,11 @@ public class Convert {
                 }
             }
         }
+
+        if (value < 0) {
+            throw new IllegalArgumentException(" cannot be converted to a Roman Numeral");
+        }
+
         return result.toString();
     }
 

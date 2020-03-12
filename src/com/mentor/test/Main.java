@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 import static com.mentor.test.Calculator.calculator;
+import static com.mentor.test.Convert.intToRme;
+import static com.mentor.test.Convert.romeToInt;
 
 public class Main {
     public static void main(String[] args) throws IOException {
@@ -23,38 +25,52 @@ public class Main {
 
         operation = str[1];
 
-            if (str[0].matches("[-+]?\\d+") && str[2].matches("[-+]?\\d+")) {
+            if (str[0].matches("[-+]?\\d+") && str[2].matches("[-+]?\\d+") && checkOperator(operation)) {
                 num1 = Integer.parseInt(str[0]);
                 num2 = Integer.parseInt(str[2]);
 
                 if ((num1 > 0 && num1 <= 10) && (num2 > 0 && num2 <= 10)) {
-                    calculator(num1, operation, num2);
+                    intCalculate(num1, operation, num2);
                 } else {
-                    throw new IOException();
+                    throw new IOException("Error");
                 }
 
-            } else if (!(str[0].matches("[-+]?\\d+")) && !(str[2].matches("[-+]?\\d+"))) {
+            } else if (!(str[0].matches("[-+]?\\d+")) && !(str[2].matches("[-+]?\\d+")) && checkOperator(operation)) {
                 str1 = str[0];
                 str2 = str[2];
 
                 if(check(str1, str2)){
-                    romeCaclulate(str1, operation, str2);
+                    romeCalculate(str1, operation, str2);
                 }else {
-                    throw new IOException();
+                    throw new IOException("Error");
                 }
 
             } else {
-                throw new IOException();
+                throw new IOException("Error");
             }
 
 
     }
 
+    public static boolean checkOperator(String s){
+        if(s.equals("/")){
+            return true;
+        }else if(s.equals("*")){
+            return true;
+        }else if(s.equals("+")) {
+            return true;
+        }else if(s.equals("-")) {
+            return true;
+        }else {
+            return false;
+        }
+    }
+
 
     public static boolean check (String a, String b){
-        Convert convert = new Convert();
-        int num1 = convert.romeToInt(a);
-        int num2 = convert.romeToInt(b);
+
+        int num1 = romeToInt(a);
+        int num2 = romeToInt(b);
 
         if((num1 > 0 && num1 <= 10) && (num2 > 0 && num2 <= 10)){
             return true;
@@ -63,13 +79,19 @@ public class Main {
         }
     }
 
-    public static void romeCaclulate(String a, String operation, String b){
-        Convert convert = new Convert();
-        int num1 = convert.romeToInt(a);
-        int num2 = convert.romeToInt(b);
+    public static void romeCalculate(String a, String operation, String b){
 
-        calculator(num1, operation, num2);
+        int num1 = romeToInt(a);
+        int num2 = romeToInt(b);
+
+        System.out.println(intToRme(calculator(num1, operation, num2)));
     }
+
+    public static void intCalculate(int a, String operation, int b){
+
+        System.out.println(calculator(a, operation, b));
+    }
+
 
 
 }

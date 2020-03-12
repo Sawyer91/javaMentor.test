@@ -2,23 +2,23 @@ package com.mentor.test;
 
 
 
-public class Calculator{
+public class Calculator {
 
-    public static void calculator(int a, String operation, int b){
-        if(operation.equals("+")){
-            System.out.println(a + b);
-        }else if(operation.equals("-")){
-            System.out.println(a - b);
-        }else if(operation.equals("*")){
-            System.out.println(a * b);
-        }else if(operation.equals("/")){
-            System.out.println(a / b);
-        }else {
-            try {
-                throw new Exception();
-            } catch (Exception e) {
-                e.printStackTrace();
+    public static int calculator(int a, String operation, int b) {
+        int res = 0;
+
+            if (operation.equals("+")) {
+                res = (a + b);
+            } else if (operation.equals("-")) {
+                res = (a - b);
+            } else if (operation.equals("*")) {
+                res = (a * b);
+            } else if (operation.equals("/")) {
+                res = (a / b);
             }
-        }
+            return res;
+
     }
 }
+
+
